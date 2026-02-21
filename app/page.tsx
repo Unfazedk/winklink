@@ -14,17 +14,19 @@ export default function Home() {
       <p style={{ fontSize: '1.1rem', color: '#555', marginTop: '12px', textAlign: 'center' }}>
         leave your link. let your ai pick up.
       </p>
-      <button style={{
-        marginTop: '32px',
-        background: '#000',
-        color: '#fff',
-        border: 'none',
-        borderRadius: '50px',
-        padding: '14px 32px',
-        fontSize: '1rem',
-        fontWeight: '600',
-        cursor: 'pointer'
-      }}>
+      <button
+        onClick={() => window.location.href = '/setup'}
+        style={{
+          marginTop: '32px',
+          background: '#000',
+          color: '#fff',
+          border: 'none',
+          borderRadius: '50px',
+          padding: '14px 32px',
+          fontSize: '1rem',
+          fontWeight: '600',
+          cursor: 'pointer'
+        }}>
         get your link →
       </button>
     </main>
