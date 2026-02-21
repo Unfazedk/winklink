@@ -7,8 +7,8 @@ export default function Setup() {
   const [name, setName] = useState('')
   const [username, setUsername] = useState('')
   const [bio, setBio] = useState('')
-  const [pfp, setPfp] = useState(null)
   const [preview, setPreview] = useState(null)
+  const [pfp, setPfp] = useState(null)
 
   const handlePfp = (e) => {
     const file = e.target.files[0]
@@ -31,7 +31,7 @@ export default function Setup() {
   return (
     <main style={{
       minHeight: '100vh',
-      background: '#fff',
+      background: '#0a0a0a',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -40,45 +40,29 @@ export default function Setup() {
       padding: '20px',
       gap: '16px'
     }}>
-      <h2 style={{ fontSize: '1.8rem', fontWeight: '800', margin: 0 }}>set up your winklink</h2>
+      <h2 style={{ fontSize: '1.8rem', fontWeight: '800', margin: 0, color: '#fff' }}>set up your winklink</h2>
       <p style={{ color: '#888', margin: 0 }}>your ai will answer for you</p>
 
       <label style={{ cursor: 'pointer', marginTop: '8px' }}>
         <div style={{
           width: '80px', height: '80px', borderRadius: '50%',
-          background: '#f0f0f0', overflow: 'hidden',
+          background: '#222', overflow: 'hidden',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontSize: '2rem'
+          fontSize: '2rem', border: '2px solid #333'
         }}>
-          {preview ? <img src={preview} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : '📷'}
+          {preview ? <img src={preview} alt="profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : '📷'}
         </div>
         <input type="file" accept="image/*" onChange={handlePfp} style={{ display: 'none' }} />
       </label>
 
-      <input
-        placeholder="your name"
-        value={name}
-        onChange={e => setName(e.target.value)}
-        style={inputStyle}
-      />
-      <input
-        placeholder="username (your link will be /username)"
-        value={username}
-        onChange={e => setUsername(e.target.value.toLowerCase().replace(/\s/g, ''))}
-        style={inputStyle}
-      />
-      <textarea
-        placeholder="describe your ai's vibe... funny? mysterious? chaotic? tell it who you are."
-        value={bio}
-        onChange={e => setBio(e.target.value)}
-        rows={4}
-        style={{ ...inputStyle, resize: 'none' }}
-      />
+      <input placeholder="your name" value={name} onChange={e => setName(e.target.value)} style={inputStyle} />
+      <input placeholder="username (your link will be /username)" value={username} onChange={e => setUsername(e.target.value.toLowerCase().replace(/\s/g, ''))} style={inputStyle} />
+      <textarea placeholder="describe your ai's vibe... funny? mysterious? chaotic?" value={bio} onChange={e => setBio(e.target.value)} rows={4} style={{ ...inputStyle, resize: 'none' }} />
 
       <button onClick={handleCreate} style={{
-        background: '#000', color: '#fff', border: 'none',
+        background: '#fff', color: '#000', border: 'none',
         borderRadius: '50px', padding: '14px 32px',
-        fontSize: '1rem', fontWeight: '600', cursor: 'pointer',
+        fontSize: '1rem', fontWeight: '700', cursor: 'pointer',
         width: '100%', maxWidth: '360px'
       }}>
         create my winklink →
@@ -92,8 +76,10 @@ const inputStyle = {
   maxWidth: '360px',
   padding: '12px 16px',
   borderRadius: '12px',
-  border: '1.5px solid #e0e0e0',
+  border: '1.5px solid #333',
   fontSize: '1rem',
   outline: 'none',
+  background: '#111',
+  color: '#fff',
   fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
 }
