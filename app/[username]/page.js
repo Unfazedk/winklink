@@ -1,19 +1,21 @@
-
 'use client'
 import { useState, useEffect } from 'react'
 
 export default function UserPage({ params }) {
   const { username } = params
   const [profile, setProfile] = useState(null)
+  const [loaded, setLoaded] = useState(false)
   const [status, setStatus] = useState('ringing')
 
   useEffect(() => {
     const data = localStorage.getItem(`winklink_${username}`)
     if (data) {
-      const parsed = JSON.parse(data)
-      setProfile(parsed)
+      setProfile(JSON.parse(data))
     }
+    setLoaded(true)
   }, [username])
+
+  if (!loaded) return null
 
   if (!profile) return (
     <main style={mainStyle}>
@@ -27,21 +29,21 @@ export default function UserPage({ params }) {
         <>
           <div style={{
             width: '100px', height: '100px', borderRadius: '50%',
-            background: '#f0f0f0', overflow: 'hidden',
-            marginBottom: '16px', animation: 'pulse 1.5s infinite'
+            background: '#222', overflow: 'hidden',
+            marginBottom: '16px', animation: 'pulse 1.5s infinite',
+            border: '2px solid #333'
           }}>
             {profile.pfp
-              ? <img src={profile.pfp} alt="profile picture" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              ? <img src={profile.pfp} alt="profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               : <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2.5rem' }}>👤</div>
             }
           </div>
-          <h2 style={{ fontSize: '1.5rem', fontWeight: '700', margin: '0' }}>{profile.name || username}</h2>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: '700', margin: '0', color: '#fff' }}>{profile.name || username}</h2>
           <p style={{ color: '#888', margin: '8px 0 32px' }}>is calling...</p>
           <button onClick={() => setStatus('answered')} style={{
             background: '#22c55e', color: '#fff', border: 'none',
             borderRadius: '50px', padding: '16px 40px',
-            fontSize: '1.1rem', fontWeight: '700', cursor: 'pointer',
-            animation: 'pulse 1.5s infinite'
+            fontSize: '1.1rem', fontWeight: '700', cursor: 'pointer'
           }}>
             answer call
           </button>
@@ -52,17 +54,17 @@ export default function UserPage({ params }) {
         <>
           <div style={{
             width: '100px', height: '100px', borderRadius: '50%',
-            background: '#f0f0f0', overflow: 'hidden', marginBottom: '16px'
+            background: '#222', overflow: 'hidden', marginBottom: '16px'
           }}>
             {profile.pfp
-              ? <img src={profile.pfp} alt="profile picture" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              ? <img src={profile.pfp} alt="profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               : <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2.5rem' }}>👤</div>
             }
           </div>
-          <h2 style={{ fontSize: '1.5rem', fontWeight: '700', margin: '0' }}>{profile.name || username}</h2>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: '700', margin: '0', color: '#fff' }}>{profile.name || username}</h2>
           <p style={{ color: '#22c55e', margin: '8px 0 32px' }}>call connected</p>
           <p style={{ color: '#555', textAlign: 'center', maxWidth: '300px' }}>
-            (ai chat coming next. for now you&apos;re through.)
+            (ai voice coming next)
           </p>
           <button onClick={() => setStatus('ended')} style={{
             background: '#ef4444', color: '#fff', border: 'none',
@@ -81,8 +83,8 @@ export default function UserPage({ params }) {
 
       <style>{`
         @keyframes pulse {
-          0%, 100% { transform: scale(1); opacity: 1; }
-          50% { transform: scale(1.05); opacity: 0.8; }
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.06); }
         }
       `}</style>
     </main>
@@ -91,7 +93,7 @@ export default function UserPage({ params }) {
 
 const mainStyle = {
   minHeight: '100vh',
-  background: '#fff',
+  background: '#0a0a0a',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
