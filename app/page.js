@@ -1,3 +1,4 @@
+'use client'
 import { useRouter } from 'next/navigation'
 
 export default function Home() {
@@ -14,20 +15,10 @@ export default function Home() {
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
       padding: '20px'
     }}>
-      <h1 style={{
-        fontSize: '2.8rem',
-        fontWeight: '900',
-        margin: '0',
-        color: '#ffffff'
-      }}>
+      <h1 style={{ fontSize: '2.8rem', fontWeight: '900', margin: '0', color: '#ffffff' }}>
         winklink 👋
       </h1>
-      <p style={{
-        fontSize: '1.1rem',
-        color: '#888',
-        marginTop: '12px',
-        textAlign: 'center'
-      }}>
+      <p style={{ fontSize: '1.1rem', color: '#888', marginTop: '12px', textAlign: 'center' }}>
         leave your link. let your ai pick up.
       </p>
       <button
