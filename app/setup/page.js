@@ -50,7 +50,7 @@ export default function Setup() {
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           fontSize: '2rem'
         }}>
-          {preview ? <img src={preview} alt="profile picture" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : '📷'}
+          {preview ? <img src={preview} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : '📷'}
         </div>
         <input type="file" accept="image/*" onChange={handlePfp} style={{ display: 'none' }} />
       </label>
