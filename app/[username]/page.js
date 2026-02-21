@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
+import { supabase } from '../../lib/supabase'
 
 export default function UserPage({ params }) {
   const { username } = params
@@ -8,11 +9,16 @@ export default function UserPage({ params }) {
   const [status, setStatus] = useState('ringing')
 
   useEffect(() => {
-    const data = localStorage.getItem(`winklink_${username}`)
-    if (data) {
-      setProfile(JSON.parse(data))
+    const fetchProfile = async () => {
+      const { data } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('username', username)
+        .single()
+      setProfile(data)
+      setLoaded(true)
     }
-    setLoaded(true)
+    fetchProfile()
   }, [username])
 
   if (!loaded) return null

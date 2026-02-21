@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { supabase } from '../../lib/supabase'
 
 export default function Setup() {
   const router = useRouter()
@@ -9,6 +10,7 @@ export default function Setup() {
   const [bio, setBio] = useState('')
   const [preview, setPreview] = useState(null)
   const [pfp, setPfp] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   const handlePfp = (e) => {
     const file = e.target.files[0]
@@ -21,10 +23,17 @@ export default function Setup() {
     reader.readAsDataURL(file)
   }
 
-  const handleCreate = () => {
+  const handleCreate = async () => {
     if (!username || !bio) return
-    const profile = { name, username, bio, pfp }
-    localStorage.setItem(`winklink_${username}`, JSON.stringify(profile))
+    setLoading(true)
+    const { error } = await supabase
+      .from('profiles')
+      .insert([{ username, name, bio, pfp }])
+    if (error) {
+      alert(error.message)
+      setLoading(false)
+      return
+    }
     router.push(`/${username}`)
   }
 
@@ -59,13 +68,14 @@ export default function Setup() {
       <input placeholder="username (your link will be /username)" value={username} onChange={e => setUsername(e.target.value.toLowerCase().replace(/\s/g, ''))} style={inputStyle} />
       <textarea placeholder="describe your ai's vibe... funny? mysterious? chaotic?" value={bio} onChange={e => setBio(e.target.value)} rows={4} style={{ ...inputStyle, resize: 'none' }} />
 
-      <button onClick={handleCreate} style={{
+      <button onClick={handleCreate} disabled={loading} style={{
         background: '#fff', color: '#000', border: 'none',
         borderRadius: '50px', padding: '14px 32px',
         fontSize: '1rem', fontWeight: '700', cursor: 'pointer',
-        width: '100%', maxWidth: '360px'
+        width: '100%', maxWidth: '360px',
+        opacity: loading ? 0.6 : 1
       }}>
-        create my winklink →
+        {loading ? 'creating...' : 'create my winklink →'}
       </button>
     </main>
   )
