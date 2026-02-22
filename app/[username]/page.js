@@ -10,11 +10,14 @@ export default function UserPage({ params }) {
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('profiles')
         .select('*')
         .eq('username', username)
-        .maybeSingle();
+        .maybeSingle()
+      console.log('username:', username)
+      console.log('data:', data)
+      console.log('error:', error)
       setProfile(data)
       setLoaded(true)
     }
