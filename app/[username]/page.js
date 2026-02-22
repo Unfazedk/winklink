@@ -14,7 +14,7 @@ export default function UserPage({ params }) {
         .from('profiles')
         .select('*')
         .eq('username', username)
-        .single()
+        .maybeSingle();
       setProfile(data)
       setLoaded(true)
     }
